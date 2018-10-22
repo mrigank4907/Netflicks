@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Movies</title>
+        <link rel="stylesheet" type="text/css" href="zod.css"></link>
+    </h:head>
+    <h:body>
+        <div id="header">
+        <img src="netflicks.PNG" width="154" height="60" align="left" alt="logo"></img>   
+        </div>
+         <br/>
+       <br/>
+        <br/>
+       <br/>
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Movies available</h1>
+        <br /><br />
+
+        <h:dataTable value="#{movies.allMovies}" 
+                     var="movie" border="1" cellpadding="10">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                    #{movie.id}
+            </h:column>   
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                    #{movie.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                    #{movie.description}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Rating</f:facet>
+                    #{movie.rating}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Review</f:facet>
+                    #{movie.review}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Rent/Purchase</f:facet>
+                <h:form>
+                    <h:commandButton value="Add To Cart"  onclick="setTimeout('this.disabled = true;', 20);" action="#{addCartBean.addToBasket(movie.name)}"/>
+                </h:form>    
+            </h:column>
+                <h:column>
+                <f:facet name="header">Remove</f:facet>
+                <h:form>
+                    <h:commandButton value="Remove from Cart"  onclick="setTimeout('this.disabled = true;', 20);" action="#{addCartBean.removeFromBasket(movie.name)}"/>
+                </h:form>    
+            </h:column>
+           
+        </h:dataTable>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <h:dataTable  value="#{addCartBean.itemList}" 
+                    var="cart" border="1" cellpadding="10"> 
+        
+             <h:column>
+                    <f:facet name="header">Netflicks Cart</f:facet>
+                        #{cart.toString()}
+             </h:column>
+        </h:dataTable>  
+              
+        <h:form><h2>
+                <h:commandButton action="#{addCartBean.checkout()}" 
+                                 value ="Checkout"/>
+                &nbsp;&nbsp;&nbsp;
+                <h:commandButton action="#{addCartBean.cancel()}" value ="Cancel"/>
+                &nbsp;&nbsp;&nbsp;
+                <h:commandButton action="index" value="Back"/>
+            </h2>
+        </h:form>      
+    </h:body>
+</html>
+
